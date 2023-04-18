@@ -46,23 +46,13 @@ const rasterLayer = new TileLayer({
     url: "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}",
   }),
 });
-/*
-//Crear mapa
-const map = new Map({
-  layers: [rasterLayer, vectorLayer],
-  target: document.getElementById("map"),
-  view: new View({
-    center: fromLonLat([116.390903, 39.904835]),
-    zoom: 12,
-  }),
-}); */
 
+//Crear mapa
 export default {
   name: "MapContainer",
   components: {},
   props: {},
   mounted() {
-    //Se crea  mapa
     new Map({
       // the map will be created using the 'map-root' ref
       target: this.$refs["map-root"],
