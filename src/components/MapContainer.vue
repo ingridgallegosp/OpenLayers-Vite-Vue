@@ -5,7 +5,7 @@
 <script>
 import Map from "ol/Map.js";
 import View from "ol/View.js";
-//import OSM from "ol/source/OSM";
+import OSM from "ol/source/OSM";
 import XYZ from "ol/source/XYZ";
 import Point from "ol/geom/Point.js";
 import Feature from "ol/Feature.js";
@@ -41,14 +41,16 @@ const vectorLayer = new VectorLayer({
 
 // Layer mapa
 const rasterLayer = new TileLayer({
-  //source: new OSM() // idioma oficial de cada pais
-  source: new XYZ({
+  source: new OSM(), // idioma oficial de cada pais
+  /* source: new XYZ({
+    //title: "XYZ map",
+    //visible: true,
     url: "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}",
-  }),
+  }), */
 });
 
 //Crear mapa
-export default {
+export const map = {
   name: "MapContainer",
   components: {},
   props: {},
@@ -60,11 +62,15 @@ export default {
       view: new View({
         center: fromLonLat([116.390903, 39.904835]),
         zoom: 12,
-        constrainResolution: true, //?
+        constrainResolution: true, //If true, the view will always animate to the closest zoom level after an interaction
+        /* minZoom: 9,
+        maxZoom: 13, */
       }),
     });
   },
 };
+
+
 </script>
 
 <style scoped>
