@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <div class="cell cell-map">
-      Map
-      <MapContainer>
-
-      </MapContainer>
+      <MapContainer/>
     </div>
     <div class="cell cell-edit">
       Edit
@@ -19,7 +16,7 @@
 import MapContainer from './components/MapContainer.vue';
   export default {
   name: 'App',
-  components: { MapContainer},
+  components: { MapContainer },
     
   }
 </script>
