@@ -9,3 +9,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ##Ejercicios 
 
 https://codesandbox.io/s/v-show-warning-yvk7b?file=/src/components/Comp.vue:5121-5334
+
+
+##templae ref
+https://vuejs.org/guide/essentials/template-refs.html#accessing-the-refs
+https://escuelavue.es/tips/template-refs-vue-3/
