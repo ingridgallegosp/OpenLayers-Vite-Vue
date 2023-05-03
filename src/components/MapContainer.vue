@@ -1,7 +1,9 @@
 <template>
-  <div ref="mapRoot"
-       style="width: 100%; height: 100%">
-  </div>
+    <!-- uso de template ref -->
+    <div ref="mapRoot" 
+        style="width: 100%; height: 100%">
+    </div>
+  
 </template>
 
 <script setup>
