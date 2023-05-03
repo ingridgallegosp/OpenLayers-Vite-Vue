@@ -1,42 +1,49 @@
 <template>
-  <div ref="maproot"
+  <div ref="mapRoot"
        style="width: 100%; height: 100%">
   </div>
 </template>
 
 <script setup>
-import View from 'ol/View'
-import Map from 'ol/Map'
-import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
-import { onMounted, ref } from 'vue'
+import 'ol/ol.css' // importing the OpenLayers stylesheet is required for having good looking buttons!
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import Feature from 'ol/Feature.js';
+import Point from 'ol/geom/Point.js';
+import VectorSource from 'ol/source/Vector.js';
+import OSM from 'ol/source/OSM';
+import XYZ from 'ol/source/XYZ';
+import Overlay from 'ol/Overlay.js';
+//import TileJSON from 'ol/source/TileJSON';
+import { Icon, Style } from 'ol/style.js';
+import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
+import { fromLonLat, toLonLat } from 'ol/proj.js';
+import { toStringHDMS } from 'ol/coordinate.js';
 
-// importing the OpenLayers stylesheet is required for having
-// good looking buttons!
-import 'ol/ol.css'
+import { onMounted, ref } from 'vue';
 
-const maproot = ref(null)
+const mapRoot = ref(null)
 
 onMounted(() => {
     // this is where we create the OpenLayers map
     new Map({
-        // the map will be created using the 'map-root' ref
-        target: maproot.value,
+        // the map will be created using the 'mapRoot' ref
+        target: mapRoot.value,
         layers: [
             // adding a background tiled layer
             new TileLayer({
-                source: new OSM() // tiles are served by OpenStreetMap
+                //source: new OSM() // tiles are served by OpenStreetMap
+                source: new XYZ({
+                    url: 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'
+                })
             }),
         ],
 
-        // the map view will initially show the whole world
         view: new View({
-            zoom: 0,
-            center: [0, 0],
-            constrainResolution: true
+            center: fromLonLat([116.390903, 39.904835]),
+            zoom: 12, 
         }),
-      })
-    },
-    )
+    })
+})
 </script>
 
