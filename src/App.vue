@@ -14,11 +14,7 @@
 
 <script setup>
 import MapContainer from './components/MapContainer.vue';
- /*  export default {
-  name: 'App',
-  components: { MapContainer },
-    
-  } */
+ 
 </script>
 
 <style>
