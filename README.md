@@ -14,3 +14,6 @@ https://codesandbox.io/s/v-show-warning-yvk7b?file=/src/components/Comp.vue:5121
 ##templae ref
 https://vuejs.org/guide/essentials/template-refs.html#accessing-the-refs
 https://escuelavue.es/tips/template-refs-vue-3/
+
+https://vue3openlayers.netlify.app/componentsguide/styles/style/
+

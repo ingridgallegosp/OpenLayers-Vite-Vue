@@ -12,13 +12,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MapContainer from './components/MapContainer.vue';
-  export default {
+ /*  export default {
   name: 'App',
   components: { MapContainer },
     
-  }
+  } */
 </script>
 
 <style>
