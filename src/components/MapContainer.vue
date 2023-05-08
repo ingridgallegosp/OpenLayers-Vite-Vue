@@ -1,12 +1,19 @@
 <template>
     <!-- uso de template ref / document.getElementById-->
-    <div ref="mapRoot" 
+    <div ref='mapRoot' 
         style="width: 100%; height: 100%">
+    </div>
+    <br/>
+    <div>
+        <input type='text' placeholder='ingresa coordenada e.g. 116.3970977, 39.9207883'/>
+        <button>Mostrar en Mapa</button>
     </div>
   
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+
 import 'ol/ol.css' // importing the OpenLayers stylesheet is required for having good looking buttons!
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
@@ -21,10 +28,20 @@ import { Icon, Style } from 'ol/style.js';
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js';
 import { fromLonLat, toLonLat } from 'ol/proj.js';
 import { toStringHDMS } from 'ol/coordinate.js';
-import { onMounted, ref } from 'vue';
 
 // Contenedor donde se va a imprimir
-const mapRoot = ref(null)
+const mapRoot = ref(null);
+
+// -2 referencia inicial para grupo de marcadores
+const referenciaMarcadores = ref([
+    { name: 'China Life Tower', coordenadas: [116.3970977, 39.9207883] },
+    { name: 'Zhengyangmen', coordenadas: [116.3827144, 39.9041912] },
+    { name: 'Ciudad Prohibida', coordenadas: [116.3827144, 39.9041912] },
+    { name: 'Templo del Cielo', coordenadas: [116.3960498, 39.887287] },
+]);
+console.log(referenciaMarcadores.value[0].name)
+const arrayP = referenciaMarcadores
+console.log(arrayP.value)
 
 // Crear marcador
 const marcador2 = new Feature({
@@ -32,6 +49,8 @@ const marcador2 = new Feature({
     name: 'Beijing',
     additionalInfo: 'Capital de China',
 });
+
+
 
 // Estilo para el marcador
 const iconStyle = new Style({
@@ -45,10 +64,33 @@ const iconStyle = new Style({
 
 marcador2.setStyle(iconStyle); 
 
+
 // Agregamos el marcador al arreglo
 const vectorSource = new VectorSource({
   features: [ marcador2], // A la capa le ponemos los marcadores
 });
+
+// -2
+const arrayMarcadores = () => arrayP.value.map((element, i) => {
+    element => {
+        // -2  grupo de marcadores
+        const crearMarcador = new Feature({
+            geometry: new Point(fromLonLat(element.value[i].coordenadas)),// En dónde se va a ubicar
+            name: element.value[i].name,
+            //additionalInfo: element.value[i].additionalInfo,
+        });
+        //console.log(crearMarcador)
+
+        return crearMarcador
+    }
+});
+console.log(arrayMarcadores());
+//crearMarcadores.setStyle(iconStyle); 
+
+
+const vectorSourceMarcadores = new VectorSource({
+  features: arrayMarcadores, // A la capa le ponemos los marcadores
+}); 
 
 // Layer marcadores
 const vectorLayer = new VectorLayer({
@@ -76,7 +118,7 @@ onMounted(() => {
         layers: [rasterLayer, vectorLayer],
         view: new View({
             center: fromLonLat([116.390903, 39.904835]),
-            zoom: 10, //menos zoom se aleja, mas zoom se acerca
+            zoom: 12, //menos zoom se aleja, mas zoom se acerca
         }),
     })
 })
