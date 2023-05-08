@@ -35,6 +35,7 @@ import { toStringHDMS } from 'ol/coordinate.js';
 
 // Contenedor donde se va a imprimir
 const mapRoot = ref(null);
+const inputContent = ref('');
 
 /* Para marcador unico 
 
@@ -53,7 +54,7 @@ const iconStyle = new Style({
         src: "src/assets/location.png",
         scale: 0.1,
     })
-  }); 
+}); 
 
 marcador2.setStyle(iconStyle); 
 
@@ -69,16 +70,17 @@ const vectorLayer = new VectorLayer({
 */
 
 // para grupo de Marcadres
-const inputContent = ref('')
-
-const referenciaMarcadores = ref([
-    { id: 1, name: 'China Life Tower', coordenadas: [116.3970977, 39.9207883] },
-    { id: 2, name: 'Zhengyangmen', coordenadas: [116.3827144, 39.9041912] },
-    { id: 3, name: 'Ciudad Prohibida', coordenadas: [116.3827144, 39.9041912] },
-    { id: 4, name: 'Templo del Cielo', coordenadas: [116.3960498, 39.887287] },
-]);
+const referenciaMarcadores = ref(
+    [
+        { id: 1, name: 'Longtan Park', coordenadas: [116.3992911, 39.9024493] },  //problemas al leer index 0
+        { id: 2, name: 'China Life Tower', coordenadas: [116.4079437, 39.9144164] },
+        { id: 3, name: 'Zhengyangmen', coordenadas: [116.3827144, 39.9041912] },
+        { id: 4, name: 'Ciudad Prohibida', coordenadas: [116.3827144, 39.9041912] },
+        { id: 5, name: 'Templo del Cielo', coordenadas: [116.3960498, 39.887287] }, 
+        { id: 6, name: 'Longtan Park', coordenadas: [116.3992911, 39.9024493] }, //no muestra un sexto elemento
+    ]
+);
 //console.log(referenciaMarcadores.value)
-
 
 // Estilo para el marcador
 const iconStyle = new Style({
@@ -88,8 +90,7 @@ const iconStyle = new Style({
         src: "src/assets/location.png",
         scale: 0.1,
     })
-  }); 
-
+}); 
 //marcador2.setStyle(iconStyle); falta dar estilos a cada marcador
 
 // Grupo de marcadores
@@ -104,11 +105,12 @@ const arrayMarcadores = () => referenciaMarcadores.value.map((element) => {
 
 // Marcadores al arreglo / features es un arreglo
 const vectorSourceMarcadores = new VectorSource({
-  features: arrayMarcadores(), // A la capa le ponemos los marcadores
+    features: arrayMarcadores(), 
 }); 
 
+// Layer para marcadores
 const vectorLayerMarcadores = new VectorLayer({
-  source: vectorSourceMarcadores,
+    source: vectorSourceMarcadores,
 });
 
 
@@ -120,9 +122,8 @@ const rasterLayer = new TileLayer({
       crossOrigin: '',
     }) */
     source: new XYZ({
-      url: 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'//mapa de google
-    })
-      
+        url: 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'//mapa de google
+    })  
 });
 
 // Creamos/montamos el mapa
@@ -145,8 +146,8 @@ const agregarCoord = () => {
             id: referenciaMarcadores.value.length,
             name: '',
             coordenadas: [inputContent.value]
-        }
-    )
+        },
+    );
     inputContent.value= ''
 };
 
